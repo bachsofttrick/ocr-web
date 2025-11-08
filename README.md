@@ -13,3 +13,6 @@ Todo:
     - Could be expanded to have cropping later
   - [ ] LightOnOCR returns result, give it to user. Find ways to prevent rambling (or it cannot read the image)
   - [ ] Dry run on your PC
+
+This application uses components licensed under the Apache License, Version 2.0.
+© 2025 [LightOn AI](https://www.lighton.ai/)
