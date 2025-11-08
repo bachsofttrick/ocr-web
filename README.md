@@ -2,11 +2,11 @@
 A web application that utilize LightOnOCR model to transcribe image to text.
 
 Todo:
-- [ ] Create a Docker container to work in.
-- [ ] Get GPU to work in it. llama.cpp doesn't need CUDA so Vulkan is fine
-- [ ] Get llama-cpp-python to work
+- [x] Create a Docker container to work in.
+- [x] Get llama-cpp-python to work
 - [ ] Get llama-cpp-python to use noctrex/LightOnOCR-1B-1025-GGUF model
   - [ ] Test an image on it and see response
+- [ ] Get GPU to work in it. llama.cpp doesn't need CUDA so Vulkan is fine
 - [ ] Create a fullstack (React/FastAPI) web with pages:
   - [ ] Homepage: Upload image
   - [ ] After upload, maybe store in cache and tell user to confirm the image to be uploaded
