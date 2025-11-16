@@ -1,7 +1,7 @@
 # OCR AI Web
 A web application that utilize LightOnOCR model to transcribe image to text.
 
-Todo:
+## Todo
 - [x] Create a Docker container to work in.
 - [x] Get llama-cpp-python to work
 - [x] Get GPU to work in it. llama.cpp doesn't need CUDA so Vulkan is fine
