@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  ubuntu:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM ubuntu:latest
+        RUN apt update && \
+            apt install -y python3 curl unzip vim libvulkan1 vulkan-tools libxext6 libegl1 && \
+            mkdir /llama
+        ADD https://github.com/ggml-org/llama.cpp/releases/download/b7003/llama-b7003-bin-ubuntu-vulkan-x64.zip /llama
+        WORKDIR /llama
+        RUN unzip llama-b7003-bin-ubuntu-vulkan-x64.zip
+        WORKDIR /llama/build/bin
+    container_name: ocr-web
+    runtime: nvidia
+    tty: true
+    stdin_open: true
+    command: bash
+    volumes:
+      - /usr/share/vulkan/icd.d/nvidia_icd.json:/usr/share/vulkan/icd.d/nvidia_icd.json:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [graphics]
