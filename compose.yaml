@@ -1,4 +1,4 @@
-name: "ocr-web"
+name: ocr-web
 
 services:
   ubuntu:
