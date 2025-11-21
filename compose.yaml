@@ -1,4 +1,5 @@
-version: "3.9"
+name: "ocr-web"
+
 services:
   ubuntu:
     build:
