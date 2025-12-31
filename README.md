@@ -15,4 +15,3 @@ A web application that utilize LightOnOCR model to transcribe image to text.
   - [ ] Dry run on your PC
 
 This application uses components licensed under the Apache License, Version 2.0.  
-© 2025 [LightOn AI](https://www.lighton.ai/)
