@@ -7,12 +7,8 @@ services:
       dockerfile_inline: |
         FROM ubuntu:latest
         RUN apt update && \
-            apt install -y python3 curl unzip vim libvulkan1 vulkan-tools libxext6 libegl1 && \
-            mkdir /llama
-        ADD https://github.com/ggml-org/llama.cpp/releases/download/b7003/llama-b7003-bin-ubuntu-vulkan-x64.zip /llama
-        WORKDIR /llama
-        RUN unzip llama-b7003-bin-ubuntu-vulkan-x64.zip
-        WORKDIR /llama/build/bin
+            apt install -y python3 curl vim libvulkan1 vulkan-tools libxext6 libegl1 libgomp1
+        WORKDIR /app
     container_name: ocr-web
     runtime: nvidia
     tty: true
@@ -20,6 +16,7 @@ services:
     command: bash
     volumes:
       - /usr/share/vulkan/icd.d/nvidia_icd.json:/usr/share/vulkan/icd.d/nvidia_icd.json:ro
+      - /home/bachleu/Documents/My Programming/python/ocr-web:/app
     deploy:
       resources:
         reservations:
