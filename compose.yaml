@@ -7,7 +7,8 @@ services:
       dockerfile_inline: |
         FROM ubuntu:latest
         RUN apt update && \
-            apt install -y python3 curl vim libvulkan1 vulkan-tools libxext6 libegl1 libgomp1
+            apt install -y python3 curl vim libvulkan1 vulkan-tools libxext6 libegl1 libgomp1 \
+            git python3-pip python3-venv libvulkan-dev glslc
         WORKDIR /app
     container_name: ocr-web
     runtime: nvidia
