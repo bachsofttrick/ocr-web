@@ -23,11 +23,11 @@ os.system('clear')
 
 # Import mmproj for vision part of the multimodal
 chat_handler = Llava15ChatHandler(
-    clip_model_path='/app/models/Qwen2.5-VL-3B-Instruct-mmproj-F16.gguf'
+    clip_model_path='/app/models/mmproj-Qwen2-VL-2B-Instruct-f16.gguf'
 )
 
 llm = Llama(
-    model_path='/app/models/Qwen2.5-VL-3B-Instruct-Q4_K_M.gguf',
+    model_path='/app/models/Qwen2-VL-2B-Instruct-Q4_K_M.gguf',
     n_gpu_layers=99,
     n_ctx=0,
     chat_handler=chat_handler,
