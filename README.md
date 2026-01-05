@@ -11,7 +11,7 @@ A web application that utilize LightOnOCR model to transcribe image to text.
   - [x] Homepage: Upload image
   - [x] After upload, store in cache and tell user to confirm the image and whether to resize/crop it
   - [x] LightOnOCR returns result, give it to user.
-  - [x] Dry run on your PC
+  - [ ] Dry run on PC.
 
 llama-cpp-python gets stuck easily, doesn't work. And this was on Qwen2-VL model.  
 Switching to sending JSON to OpenAI API of llama.cpp (/v1/chat/completions).  
