@@ -1,0 +1,119 @@
+.confirm-page {
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.confirm-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.confirm-container h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.api-url-input {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.api-url-input label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.api-url-input input {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #646cff;
+  border-radius: 8px;
+  background-color: transparent;
+  color: inherit;
+}
+
+.image-controls {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #646cff;
+  border-radius: 8px;
+  background-color: rgba(100, 108, 255, 0.05);
+}
+
+.control-group {
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.control-group input[type="range"] {
+  width: 100%;
+}
+
+.button-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.apply-btn {
+  background-color: #646cff;
+  color: white;
+}
+
+.apply-btn:hover {
+  background-color: #4d56d8;
+}
+
+.reset-btn {
+  background-color: #888;
+  color: white;
+}
+
+.reset-btn:hover {
+  background-color: #666;
+}
+
+.image-container {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  max-height: 500px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.confirm-btn {
+  background-color: #646cff;
+  color: white;
+}
+
+.confirm-btn:hover:not(:disabled) {
+  background-color: #4d56d8;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

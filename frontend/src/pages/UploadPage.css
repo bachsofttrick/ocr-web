@@ -1,0 +1,66 @@
+.upload-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.upload-container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.upload-container h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.api-url-input {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.api-url-input label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.api-url-input input {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #646cff;
+  border-radius: 8px;
+  background-color: transparent;
+  color: inherit;
+}
+
+.upload-icon-container {
+  border: 3px dashed #646cff;
+  border-radius: 12px;
+  padding: 4rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: rgba(100, 108, 255, 0.05);
+}
+
+.upload-icon-container:hover {
+  border-color: #4d56d8;
+  background-color: rgba(100, 108, 255, 0.1);
+  transform: scale(1.02);
+}
+
+.upload-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  color: #646cff;
+}
+
+.upload-icon-container p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #646cff;
+}
