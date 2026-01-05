@@ -1,6 +1,5 @@
 # OCR AI Web
-A web application that utilize LightOnOCR model to transcribe image to text.
-This application uses components licensed under the Apache License, Version 2.0.  
+A web application that utilize LightOnOCR model to transcribe image to text.  
 
 ## Todo
 - [x] Create a Docker container to work in.
@@ -14,6 +13,6 @@ This application uses components licensed under the Apache License, Version 2.0.
   - [x] LightOnOCR returns result, give it to user.
   - [x] Dry run on your PC
 
-llama-cpp-python gets stuck easily, doesn't work. And this was on Qwen2-VL model.
-Switching to sending JSON to OpenAI API of llama.cpp (/v1/chat/completions).
+llama-cpp-python gets stuck easily, doesn't work. And this was on Qwen2-VL model.  
+Switching to sending JSON to OpenAI API of llama.cpp (/v1/chat/completions).  
 That works much better. 
