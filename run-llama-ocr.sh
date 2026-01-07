@@ -2,9 +2,11 @@
 
 # Configuration
 MODEL_REPO="noctrex/LightOnOCR-1B-1025-GGUF"
-MODEL_FILE="lightonocr-1b-1025-q4_k_m.gguf"  # Adjust this to the specific quantization you want
+MODEL_FILE="LightOnOCR-1B-1025-Q4_K_M.gguf"  # Adjust this to the specific quantization you want
+MMPROJ_FILE="mmproj-F16.gguf"
 MODEL_DIR="./models"
 MODEL_PATH="${MODEL_DIR}/${MODEL_FILE}"
+MMPROJ_PATH="${MODEL_DIR}/${MMPROJ_FILE}"
 PORT=8033
 GPU_LAYERS=99
 HOST="127.0.0.1"
@@ -14,6 +16,27 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
+
+download_huggingface() {
+    # Activate virtual environment
+    echo -e "${GREEN}Activating virtual environment...${NC}"
+    source "${VENV_DIR}/bin/activate"
+
+    # Create models directory if it doesn't exist
+    mkdir -p "${MODEL_DIR}"
+
+    # Check if huggingface-hub is installed, install if needed
+    if ! command -v huggingface-cli &> /dev/null; then
+        echo -e "${YELLOW}huggingface-cli not found. Installing huggingface-hub...${NC}"
+        pip install huggingface-hub
+        if [ $? -ne 0 ]; then
+            echo -e "${RED}Error: Failed to install huggingface-hub${NC}"
+            exit 1
+        fi
+        echo -e "${GREEN}huggingface-hub installed successfully${NC}"
+    fi
+}
+
 
 # Check or create virtual environment
 VENV_DIR="./venv"
@@ -28,29 +51,15 @@ if [ ! -d "${VENV_DIR}" ]; then
     echo -e "${GREEN}Virtual environment created successfully${NC}"
 fi
 
-# Activate virtual environment
-echo -e "${GREEN}Activating virtual environment...${NC}"
-source "${VENV_DIR}/bin/activate"
-
-# Create models directory if it doesn't exist
-mkdir -p "${MODEL_DIR}"
-
-# Check if huggingface-hub is installed, install if needed
-if ! command -v huggingface-cli &> /dev/null; then
-    echo -e "${YELLOW}huggingface-cli not found. Installing huggingface-hub...${NC}"
-    pip install huggingface-hub
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}Error: Failed to install huggingface-hub${NC}"
-        exit 1
-    fi
-    echo -e "${GREEN}huggingface-hub installed successfully${NC}"
-fi
-
 # Check if model exists, if not download it
+if [ ! -d "${MODEL_DIR}" ]; then
+    mkdir "${MODEL_DIR}"
+fi
 if [ ! -f "${MODEL_PATH}" ]; then
     echo -e "${YELLOW}Model not found. Downloading from Hugging Face...${NC}"
     echo -e "${GREEN}Using huggingface-cli to download model...${NC}"
-    huggingface-cli download "${MODEL_REPO}" "${MODEL_FILE}" --local-dir "${MODEL_DIR}" --local-dir-use-symlinks False
+    download_huggingface
+    hf download "${MODEL_REPO}" "${MODEL_FILE}" "${MMPROJ_FILE}" --local-dir "${MODEL_DIR}"
 fi
 
 # Check if model file exists after download attempt
@@ -69,15 +78,11 @@ deactivate
 LLAMA_SERVER=""
 if command -v llama-server &> /dev/null; then
     LLAMA_SERVER="llama-server"
-elif command -v llama.cpp/llama-server &> /dev/null; then
-    LLAMA_SERVER="llama.cpp/llama-server"
-elif [ -f "./llama-server" ]; then
-    LLAMA_SERVER="./llama-server"
-elif [ -f "./server" ]; then
-    LLAMA_SERVER="./server"
+elif [ -f "./llama/llama-server" ]; then
+    LLAMA_SERVER="./llama/llama-server"
 else
     echo -e "${RED}Error: llama-server executable not found${NC}"
-    echo "Please ensure llama.cpp is built and the server executable is in PATH or current directory"
+    echo "Please ensure llama.cpp is built and the server executable is in PATH or in /llama"
     exit 1
 fi
 
@@ -87,10 +92,15 @@ echo -e "${GREEN}Starting server on port ${PORT} with ${GPU_LAYERS} GPU layers..
 # Run llama-server
 "${LLAMA_SERVER}" \
     --model "${MODEL_PATH}" \
+    --mmproj "${MMPROJ_PATH}" \
     --host "${HOST}" \
     --port "${PORT}" \
     --gpu-layers "${GPU_LAYERS}" \
-    --ctx-size 4096 
+    --ctx-size 4096 &
 
 # Note: Adjust the following parameters as needed:
 # --ctx-size: Context size (4096 is reasonable for OCR tasks)
+
+# Run frontend (dev only)
+npm i
+npm run dev

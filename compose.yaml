@@ -9,12 +9,17 @@ services:
         RUN apt update && \
             apt install -y python3 curl vim libvulkan1 vulkan-tools libxext6 libegl1 libgomp1 \
             git python3-pip python3-venv libvulkan-dev glslc
+        COPY install-node.sh /
+        RUN /install-node.sh
         WORKDIR /app
     container_name: ocr-web
     runtime: nvidia
     tty: true
     stdin_open: true
     command: bash
+    ports:
+      - "8033:8033"
+      - "5173:5173"
     volumes:
       - /usr/share/vulkan/icd.d/nvidia_icd.json:/usr/share/vulkan/icd.d/nvidia_icd.json:ro
       - /home/bachleu/Documents/My Programming/python/ocr-web:/app
