@@ -19,7 +19,7 @@ services:
     command: bash
     ports:
       - "8033:8033"
-      - "5173:5173"
+      - "8000:8000"
     volumes:
       - /usr/share/vulkan/icd.d/nvidia_icd.json:/usr/share/vulkan/icd.d/nvidia_icd.json:ro
       - /home/bachleu/Documents/My Programming/python/ocr-web:/app

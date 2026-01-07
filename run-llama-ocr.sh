@@ -19,7 +19,6 @@ NC='\033[0m' # No Color
 
 download_huggingface() {
     # Activate virtual environment
-    echo -e "${GREEN}Activating virtual environment...${NC}"
     source "${VENV_DIR}/bin/activate"
 
     # Create models directory if it doesn't exist
@@ -35,6 +34,25 @@ download_huggingface() {
         fi
         echo -e "${GREEN}huggingface-hub installed successfully${NC}"
     fi
+}
+
+download_fastapi() {
+    # Activate virtual environment
+    source "${VENV_DIR}/bin/activate"
+
+    # Check if fastapi is installed, install if needed
+    if ! python -c "import fastapi" &> /dev/null; then
+        echo -e "${YELLOW}FastAPI not found. Installing fastapi[standard]...${NC}"
+        pip install "fastapi[standard]"
+        if [ $? -ne 0 ]; then
+            echo -e "${RED}Error: Failed to install fastapi[standard]${NC}"
+            exit 1
+        fi
+        echo -e "${GREEN}FastAPI installed successfully${NC}"
+    fi
+
+    # Deactivate virtual environment
+    deactivate
 }
 
 
@@ -71,8 +89,9 @@ fi
 echo -e "${GREEN}Model found at: ${MODEL_PATH}${NC}"
 
 # Deactivate virtual environment
-echo -e "${GREEN}Deactivating virtual environment...${NC}"
 deactivate
+
+download_fastapi
 
 # Find llama-server executable
 LLAMA_SERVER=""
@@ -101,6 +120,16 @@ echo -e "${GREEN}Starting server on port ${PORT} with ${GPU_LAYERS} GPU layers..
 # Note: Adjust the following parameters as needed:
 # --ctx-size: Context size (4096 is reasonable for OCR tasks)
 
-# Run frontend (dev only)
+# Build frontend
+echo -e "${GREEN}Installing frontend dependencies...${NC}"
 npm i
-npm run dev
+echo -e "${GREEN}Building frontend...${NC}"
+npm run build
+
+# Activate virtual environment for FastAPI
+echo -e "${GREEN}Activating virtual environment for FastAPI...${NC}"
+source "${VENV_DIR}/bin/activate"
+
+# Run FastAPI server
+echo -e "${GREEN}Starting FastAPI server...${NC}"
+fastapi run main.py
